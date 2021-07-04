@@ -1,9 +1,5 @@
 package Chess;
 
-import java.lang.annotation.Target;
-
-import javax.xml.transform.Source;
-
 import Chess_pieces.King;
 import Chess_pieces.Rook;
 import boardgame.Board;
