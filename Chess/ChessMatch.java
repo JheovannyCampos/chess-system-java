@@ -1,5 +1,9 @@
 package Chess;
 
+import java.lang.annotation.Target;
+
+import javax.xml.transform.Source;
+
 import Chess_pieces.King;
 import Chess_pieces.Rook;
 import boardgame.Board;
@@ -27,17 +31,24 @@ public class ChessMatch {
     public ChessPiece performChessMove(ChessPosition sourceChessPosition, ChessPosition targetPosition) {
         Position source = sourceChessPosition.toPosition();
         Position target = targetPosition.toPosition();
-        validadeSourcePosition(source);
+        validateSourcePosition(source);
+        validateTargetPosition(source, target);
         Piece capturedPiece= makeMove(source, target);
         return (ChessPiece)capturedPiece;
     }
 
-    private void validadeSourcePosition(Position position) {
+    private void validateSourcePosition(Position position) {
         if(!board.thereIsAPiece(position)) {
             throw new ChessException("Não existe peça na posição de origem");
         }
         if(!board.piece(position).isThereAnyPossibleMove()){
             throw new ChessException("Não existe movimentos possíveis");
+        }
+    }
+
+    private void validateTargetPosition(Position source, Position target) {
+        if(!board.piece(source).possibleMove(target)) {
+            throw new ChessException("A peça escolhida não pode se mover para a posição de destino");
         }
     }
 
